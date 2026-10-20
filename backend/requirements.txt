@@ -1,0 +1,5 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+qrcode>=7.4
+Pillow>=10.0
+python-dotenv>=1.0

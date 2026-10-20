@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RTB QR Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.dataset.theme = localStorage.getItem("theme") ||
+    (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");</script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"><i data-lucide="qr-code"></i></span>
+        <div>
+          <h1>RTB QR Studio</h1>
+          <p class="subtitle">Create beautiful QR codes in seconds.</p>
+        </div>
+      </div>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Switch to dark mode">
+        <i data-lucide="moon" class="icon-moon"></i><i data-lucide="sun" class="icon-sun"></i>
+      </button>
+    </header>
+
+    <main class="grid">
+      <section class="card" aria-labelledby="gen-title">
+        <h2 id="gen-title">Generate your QR Code</h2>
+        <p class="muted">Paste a link and get a scannable QR code you can customize and download.</p>
+
+        <div class="field">
+          <label for="url">Website URL</label>
+          <input id="url" type="text" inputmode="url" autocomplete="url" spellcheck="false"
+                 placeholder="https://example.com" aria-describedby="url-error">
+          <p id="url-error" class="error" role="alert" hidden></p>
+        </div>
+        <button id="generate" class="btn primary" type="button">
+          <i data-lucide="qr-code"></i><span>Generate QR Code</span>
+        </button>
+
+        <hr>
+
+        <h3>Customize</h3>
+        <fieldset class="field">
+          <legend>Size</legend>
+          <div class="segmented" id="sizes">
+            <label><input type="radio" name="size" value="128"><span>128px</span></label>
+            <label><input type="radio" name="size" value="256" checked><span>256px</span></label>
+            <label><input type="radio" name="size" value="512"><span>512px</span></label>
+          </div>
+        </fieldset>
+        <div class="colors">
+          <div class="field">
+            <label for="fg">Foreground</label>
+            <div class="color"><input id="fg" type="color" value="#000000"><code id="fg-hex">#000000</code></div>
+          </div>
+          <div class="field">
+            <label for="bg">Background</label>
+            <div class="color"><input id="bg" type="color" value="#ffffff"><code id="bg-hex">#ffffff</code></div>
+          </div>
+        </div>
+        <button id="reset" class="btn ghost" type="button"><i data-lucide="rotate-ccw"></i><span>Reset to Default</span></button>
+      </section>
+
+      <section class="card preview-card" aria-labelledby="prev-title" aria-live="polite">
+        <h2 id="prev-title">Preview</h2>
+        <div class="preview" id="preview">
+          <div class="empty" id="empty">
+            <i data-lucide="scan-line"></i>
+            <p><strong>No QR code yet</strong></p>
+            <p class="muted">Enter a URL and select Generate QR Code to see it here.</p>
+          </div>
+          <div class="spinner" id="spinner" hidden aria-label="Generating"></div>
+          <img id="qr" alt="Generated QR code" hidden>
+        </div>
+        <p id="shown-url" class="shown-url" hidden></p>
+        <div class="actions">
+          <button id="download" class="btn primary" type="button" disabled><i data-lucide="download"></i><span>Download PNG</span></button>
+          <button id="copy" class="btn" type="button" disabled><i data-lucide="copy"></i><span>Copy URL</span></button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built by RTB's Tech</p>
+      <p class="muted">Free, simple, and fast QR code generation.</p>
+    </footer>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
